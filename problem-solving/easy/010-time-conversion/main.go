@@ -5,20 +5,43 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 )
 
 /*
- * Complete the 'dayOfProgrammer' function below.
+ * Complete the 'timeConversion' function below.
  *
  * The function is expected to return a STRING.
- * The function accepts INTEGER year as parameter.
+ * The function accepts STRING s as parameter.
  */
 
-func dayOfProgrammer(year int32) string {
+func timeConversion(s string) string {
 	// Write your code here
+	var (
+		re      = regexp.MustCompile(`([01][0-9]):([0-5][0-9]):([0-5][0-9])([AP]M)`)
+		matches = re.FindStringSubmatch(s)
+	)
 
+	if len(matches) != 5 {
+		return fmt.Sprintf("%d", len(matches))
+	}
+
+	hours, err := strconv.Atoi(matches[1])
+	if err != nil {
+		return ""
+	}
+
+	if hours == 12 {
+		hours = 0
+	}
+
+	if matches[4] == "PM" {
+		hours += 12
+	}
+
+	return fmt.Sprintf("%02d:%s:%s", hours, matches[2], matches[3])
 }
 
 func main() {
@@ -31,11 +54,9 @@ func main() {
 
 	writer := bufio.NewWriterSize(stdout, 16*1024*1024)
 
-	yearTemp, err := strconv.ParseInt(strings.TrimSpace(readLine(reader)), 10, 64)
-	checkError(err)
-	year := int32(yearTemp)
+	s := readLine(reader)
 
-	result := dayOfProgrammer(year)
+	result := timeConversion(s)
 
 	fmt.Fprintf(writer, "%s\n", result)
 
