@@ -37,7 +37,6 @@ func pageCount(n int32, p int32) int32 {
 
 	last := n
 	if isPair {
-		// backward++
 		last--
 	}
 
@@ -45,7 +44,7 @@ func pageCount(n int32, p int32) int32 {
 		backward++
 	}
 
-	fmt.Printf("n=%d p=%d forward=%d backward=%d\n", n, p, forward, backward)
+	// fmt.Printf("n=%d p=%d forward=%d backward=%d\n", n, p, forward, backward)
 
 	if backward < forward {
 		return backward
