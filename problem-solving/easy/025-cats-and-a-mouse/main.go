@@ -11,27 +11,19 @@ import (
 
 // Complete the catAndMouse function below.
 func catAndMouse(x int32, y int32, z int32) string {
-	// x => Cat A
-	// y => Cat B
-	// z => Mouse
+	// x => Cat A;  y => Cat B; z => Mouse C
 	var (
-		catAtoMouse = int32(0)
-		catBtoMouse = int32(0)
+		abs = func(v int32) int32 {
+			if v < 0 {
+				return -v
+			} else {
+				return v
+			}
+		}
+
+		catAtoMouse = abs(x - z)
+		catBtoMouse = abs(y - z)
 	)
-
-	// Cat A relative position
-	if z > x {
-		catAtoMouse = z - x
-	} else {
-		catAtoMouse = x - z
-	}
-
-	// Cat B relative position
-	if z > y {
-		catBtoMouse = z - y
-	} else {
-		catBtoMouse = y - z
-	}
 
 	// fmt.Printf("Cat A=%d Cat B=%d Mouse=%d catAtoMouse=%d catBtoMouse=%d\n", x, y, z, catAtoMouse, catBtoMouse)
 	switch {
