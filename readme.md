@@ -1,4 +1,4 @@
-# Hackerank tests
+# HackerRank tests
 
 I created this repo to help me access those exercises I already solved
 
