@@ -6,14 +6,14 @@ import (
 	"testing"
 )
 
-func captureStdOut(bill []int32, k int32, b int32) string {
+func captureStdOut(f func()) string {
 	var (
 		orig    = os.Stdout
 		r, w, _ = os.Pipe()
 	)
 
 	os.Stdout = w
-	bonAppetit(bill, k, b)
+	f()
 	os.Stdout = orig
 	w.Close()
 	out, _ := io.ReadAll(r)
@@ -70,7 +70,9 @@ func Test_bonAppetit(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := captureStdOut(tt.args.bill, tt.args.k, tt.args.b)
+			got := captureStdOut(func() {
+				bonAppetit(tt.args.bill, tt.args.k, tt.args.b)
+			})
 			if got != tt.want {
 				t.Errorf("captureStdOut = %s, want %s", got, tt.want)
 			}
