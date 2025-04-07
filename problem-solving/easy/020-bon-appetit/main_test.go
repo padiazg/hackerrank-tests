@@ -74,7 +74,7 @@ func Test_bonAppetit(t *testing.T) {
 				bonAppetit(tt.args.bill, tt.args.k, tt.args.b)
 			})
 			if got != tt.want {
-				t.Errorf("captureStdOut = %s, want %s", got, tt.want)
+				t.Errorf("bonAppetit = %s, want %s", got, tt.want)
 			}
 		})
 	}
